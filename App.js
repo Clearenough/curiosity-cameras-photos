@@ -1,5 +1,5 @@
 import { SafeAreaView, StyleSheet, Text, View } from 'react-native'
-import SelectionScreen from './screens/Selection'
+import SelectionScreen from './src/screens/Selection'
 
 export default function App() {
   return (
