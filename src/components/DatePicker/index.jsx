@@ -1,11 +1,13 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import { View, Text, Button, Modal, Pressable, StyleSheet } from 'react-native'
 import { dateTransform } from './../../helpers/dateTransform'
 import CalendarSvg from '../../components/Svg/CalendarSvg'
 import DateTimePicker from '@react-native-community/datetimepicker'
+import { CameraAndDateContext } from '../../context/CameraAndDateContext'
 
 function DatePicker() {
-  const [date, setDate] = useState(new Date())
+  const { currentDateAndCamera, setCurrentDateAndCamera } =
+    useContext(CameraAndDateContext)
   const [isPickerVisible, setIsPickerVisible] = useState(false)
 
   const onPress = () => {
@@ -16,14 +18,14 @@ function DatePicker() {
   }
 
   const onChange = (event, selectedDate) => {
-    setDate(selectedDate)
+    setCurrentDateAndCamera({ ...currentDateAndCamera, date: selectedDate })
   }
 
   return (
     <View style={styles.datePickerView}>
       <Pressable onPress={onPress}>
         <View style={styles.dateInput}>
-          <Text> {dateTransform(date)} </Text>
+          <Text> {dateTransform(currentDateAndCamera.date)} </Text>
           <CalendarSvg />
         </View>
       </Pressable>
@@ -31,7 +33,7 @@ function DatePicker() {
         <View style={styles.modalView}>
           <DateTimePicker
             testID="dateTimePicker"
-            value={date}
+            value={currentDateAndCamera.date}
             mode={'date'}
             display={'spinner'}
             onChange={onChange}
