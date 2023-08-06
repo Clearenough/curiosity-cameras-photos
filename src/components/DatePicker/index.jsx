@@ -1,19 +1,23 @@
+import { useFonts } from 'expo-font'
 import { useState, useContext } from 'react'
 import { View, Text, Button, Modal, Pressable, StyleSheet } from 'react-native'
 import { dateTransform } from './../../helpers/dateTransform'
 import CalendarSvg from '../../components/Svg/CalendarSvg'
 import DateTimePicker from '@react-native-community/datetimepicker'
 import { CameraAndDateContext } from '../../context/CameraAndDateContext'
+import Cmp from '../cmp'
 
 function DatePicker() {
+  const [fontsLoaded] = useFonts({
+    'Terminal-Dosis-Regular': require('../../../assets/fonts/TerminalDosis-Regular.ttf')
+  })
+
   const { currentDateAndCamera, setCurrentDateAndCamera } =
     useContext(CameraAndDateContext)
+
   const [isPickerVisible, setIsPickerVisible] = useState(false)
 
   const onPress = () => {
-    setIsPickerVisible((isVisible) => !isVisible)
-  }
-  onConfirm = () => {
     setIsPickerVisible((isVisible) => !isVisible)
   }
 
@@ -25,7 +29,15 @@ function DatePicker() {
     <View style={styles.datePickerView}>
       <Pressable onPress={onPress}>
         <View style={styles.dateInput}>
-          <Text> {dateTransform(currentDateAndCamera.date)} </Text>
+          <Text
+            style={{
+              fontSize: 18,
+              lineHeight: 22.75,
+              fontFamily: 'Terminal-Dosis-Regular'
+            }}
+          >
+            {dateTransform(currentDateAndCamera.date)}{' '}
+          </Text>
           <CalendarSvg />
         </View>
       </Pressable>
@@ -57,8 +69,7 @@ const styles = StyleSheet.create({
   dateInput: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingLeft: 12,
-    paddingRight: 16
+    paddingHorizontal: 16
   },
   modalView: {
     padding: 35,

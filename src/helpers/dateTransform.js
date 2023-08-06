@@ -13,9 +13,13 @@ const monthName = [
   'Dec'
 ]
 
-export function dateTransform(date) {
+export function dateTransform(date, type) {
   const day = date.getDate()
-  const month = monthName[date.getMonth()]
+  const month =
+    type === 'api' ? date.getMonth() + 1 : monthName[date.getMonth()]
   const year = date.getFullYear()
+  if (type === 'api') {
+    return `${year}-${month}-${day}`
+  }
   return `${day} ${month}, ${year}`
 }

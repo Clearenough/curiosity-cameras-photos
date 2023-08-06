@@ -6,12 +6,15 @@ export function ContextProvider({ children }) {
     date: new Date(),
     camera: 'Front Hazard Avoidance Camera'
   })
+  const [photos, setPhotos] = useState([])
 
   return (
     <CameraAndDateContext.Provider
       value={{
         currentDateAndCamera,
-        setCurrentDateAndCamera
+        setCurrentDateAndCamera,
+        photos,
+        setPhotos
       }}
     >
       {children}
