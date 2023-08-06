@@ -5,7 +5,6 @@ import { dateTransform } from './../../helpers/dateTransform'
 import CalendarSvg from '../../components/Svg/CalendarSvg'
 import DateTimePicker from '@react-native-community/datetimepicker'
 import { CameraAndDateContext } from '../../context/CameraAndDateContext'
-import Cmp from '../cmp'
 
 function DatePicker() {
   const [fontsLoaded] = useFonts({
