@@ -10,6 +10,7 @@ import {
   Pressable
 } from 'react-native'
 import DatePicker from '../components/DatePicker'
+import CameraPicker from '../components/CameraPicker'
 
 function SelectionScreen() {
   return (
@@ -21,6 +22,7 @@ function SelectionScreen() {
       >
         <Text style={styles.text}>Select Camera and Date</Text>
         <DatePicker />
+        <CameraPicker />
         <View style={styles.cameraPicker}></View>
       </ImageBackground>
     </SafeAreaView>
