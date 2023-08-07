@@ -1,14 +1,28 @@
 import { SafeAreaView, StyleSheet, Text, View } from 'react-native'
 import { ContextProvider } from './src/components/CameraAndDateContext'
 import SelectionScreen from './src/screens/Selection'
+import PhotosScreen from './src/screens/Photos'
+import { NavigationContainer } from '@react-navigation/native'
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
+
+const Stack = createNativeStackNavigator()
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <ContextProvider>
-        <SelectionScreen />
-      </ContextProvider>
-    </View>
+    <NavigationContainer>
+      <View style={styles.container}>
+        <ContextProvider>
+          <Stack.Navigator
+            screenOptions={{
+              headerShown: false
+            }}
+          >
+            <Stack.Screen name="Home" component={SelectionScreen} />
+            <Stack.Screen name="Photos" component={PhotosScreen} />
+          </Stack.Navigator>
+        </ContextProvider>
+      </View>
+    </NavigationContainer>
   )
 }
 

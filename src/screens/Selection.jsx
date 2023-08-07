@@ -17,7 +17,7 @@ import { CameraAndDateContext } from '../context/CameraAndDateContext'
 import { getPhotos } from '../api/api'
 import { dateTransform } from '../helpers/dateTransform'
 
-function SelectionScreen() {
+function SelectionScreen({ navigation }) {
   const { currentDateAndCamera, photos, setPhotos } =
     useContext(CameraAndDateContext)
 
@@ -31,9 +31,15 @@ function SelectionScreen() {
   }
 
   const onPress = async () => {
+    console.log('click')
     const apiDateFornat = dateTransform(currentDateAndCamera.date, 'api')
     const data = await getPhotos(apiDateFornat, currentDateAndCamera.camera)
-    console.log(data.photos)
+    navigation.navigate('Photos', {
+      photos: data.photos,
+      camera: currentDateAndCamera.camera,
+      date: currentDateAndCamera.date
+    })
+    console.log('after navigation')
     setPhotos(data.photos)
   }
 
