@@ -1,5 +1,5 @@
 import { useFonts } from 'expo-font'
-import { useState, useContext } from 'react'
+import { useState } from 'react'
 import {
   View,
   Text,
@@ -12,15 +12,11 @@ import {
 import { dateTransform } from './../../helpers/dateTransform'
 import CalendarSvg from '../../components/Svg/CalendarSvg'
 import DateTimePicker from '@react-native-community/datetimepicker'
-import { CameraAndDateContext } from '../../context/CameraAndDateContext'
 
-function DatePicker() {
+function DatePicker({ date, setDate }) {
   const [fontsLoaded] = useFonts({
     'Terminal-Dosis-Regular': require('../../../assets/fonts/TerminalDosis-Regular.ttf')
   })
-
-  const { currentDateAndCamera, setCurrentDateAndCamera } =
-    useContext(CameraAndDateContext)
 
   const [isPickerVisible, setIsPickerVisible] = useState(false)
 
@@ -30,7 +26,7 @@ function DatePicker() {
 
   const onChange = ({ type }, selectedDate) => {
     if (type === 'set') {
-      setCurrentDateAndCamera({ ...currentDateAndCamera, date: selectedDate })
+      setDate(selectedDate)
 
       if (Platform.OS === 'android') {
         setIsPickerVisible(!isPickerVisible)
@@ -51,7 +47,7 @@ function DatePicker() {
               fontFamily: 'Terminal-Dosis-Regular'
             }}
           >
-            {dateTransform(currentDateAndCamera.date)}
+            {dateTransform(date)}
           </Text>
           <CalendarSvg />
         </View>
@@ -59,7 +55,7 @@ function DatePicker() {
       {Platform.OS === 'android' && isPickerVisible && (
         <DateTimePicker
           testID="dateTimePicker"
-          value={currentDateAndCamera.date}
+          value={date}
           mode={'date'}
           display={'spinner'}
           onChange={onChange}
@@ -71,7 +67,7 @@ function DatePicker() {
           <View style={styles.modalView}>
             <DateTimePicker
               testID="dateTimePicker"
-              value={currentDateAndCamera.date}
+              value={date}
               mode={'date'}
               display={'spinner'}
               onChange={onChange}
@@ -103,7 +99,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     padding: 35,
-    backgroundColor: 'white'
+    backgroundColor: '#ede7df'
   }
 })
 

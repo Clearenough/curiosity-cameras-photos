@@ -1,29 +1,19 @@
 import { useFonts } from 'expo-font'
 import { SelectList } from 'react-native-dropdown-select-list'
-import { View, Text, Button, Modal, Pressable, StyleSheet } from 'react-native'
-import { useState, useContext, useEffect } from 'react'
+import { View, StyleSheet } from 'react-native'
+import { useContext } from 'react'
 import { CameraAndDateContext } from '../../context/CameraAndDateContext'
-import { CameraPickerContext } from '../../context/CameraPickerContext'
 import DropdownSvg from '../Svg/DropdownSvg'
-import CalendarSvg from '../Svg/CalendarSvg'
 
-import { accordance, cameras } from '../../constants/constants'
+import { cameras } from '../../constants/constants'
 
-function CameraPicker() {
+function CameraPicker({ setCamera }) {
   const [fontsLoaded] = useFonts({
     'Terminal-Dosis-Regular': require('../../../assets/fonts/TerminalDosis-Regular.ttf')
   })
-  const [isFontLoaded, setIsFontLoaded] = useState(false)
-  const [isFocus, setIsFocus] = useState(false)
-  const [selected, setSelected] = useState('')
-  const { currentDateAndCamera, setCurrentDateAndCamera } =
-    useContext(CameraAndDateContext)
+  useContext(CameraAndDateContext)
   const setValue = (value) => {
-    setCurrentDateAndCamera({ ...currentDateAndCamera, camera: value })
-  }
-
-  if (!fontsLoaded) {
-    return null
+    setCamera(value)
   }
 
   return (

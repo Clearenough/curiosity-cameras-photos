@@ -12,17 +12,15 @@ export default function App() {
   return (
     <NavigationContainer>
       <View style={styles.container}>
-        <ContextProvider>
-          <Stack.Navigator
-            screenOptions={{
-              headerShown: false
-            }}
-          >
-            <Stack.Screen name="Home" component={SelectionScreen} />
-            <Stack.Screen name="Photos" component={PhotosScreen} />
-            <Stack.Screen name="Photo" component={PhotoScreen} />
-          </Stack.Navigator>
-        </ContextProvider>
+        <Stack.Navigator
+          screenOptions={{
+            headerShown: false
+          }}
+        >
+          <Stack.Screen name="Home" component={SelectionScreen} />
+          <Stack.Screen name="Photos" component={PhotosScreen} />
+          <Stack.Screen name="Photo" component={PhotoScreen} />
+        </Stack.Navigator>
       </View>
     </NavigationContainer>
   )

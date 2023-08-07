@@ -11,10 +11,6 @@ function PhotoScreen({ route, navigation }) {
 
   const { photo } = route.params
 
-  if (!fontsLoaded) {
-    return null
-  }
-
   return (
     <SafeAreaView style={styles.container}>
       <Header

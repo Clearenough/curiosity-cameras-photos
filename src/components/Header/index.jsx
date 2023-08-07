@@ -1,4 +1,4 @@
-import { View, Pressable, Text, StyleSheet } from 'react-native'
+import { View, Pressable, StyleSheet } from 'react-native'
 import BackSvg from '../Svg/BackSvg'
 
 function Header({ children, navigation, color, additionalIcon }) {
