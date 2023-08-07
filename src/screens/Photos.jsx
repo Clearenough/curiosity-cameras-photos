@@ -11,6 +11,7 @@ import BackSvg from '../components/Svg/BackSvg'
 import { accordance } from '../constants/constants'
 import { dateTransform } from '../helpers/dateTransform'
 import { useFonts } from 'expo-font'
+import Header from '../components/Header'
 
 function PhotosScreen({ route, navigation }) {
   const [fontsLoaded] = useFonts({
@@ -20,31 +21,35 @@ function PhotosScreen({ route, navigation }) {
 
   const { photos, camera, date } = route.params
 
-  console.log(photos)
+  if (!fontsLoaded) {
+    return null
+  }
+
+  const onPress = (item) => {
+    console.log(item)
+    navigation.navigate('Photo', {
+      photo: item
+    })
+  }
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.header}>
-        <View style={styles.icon}>
-          <Pressable onPress={() => navigation.goBack()}>
-            <BackSvg />
-          </Pressable>
-        </View>
-        <View style={styles.info}>
-          <Text style={styles.camera}>{accordance[camera]}</Text>
-          <Text style={styles.date}>{dateTransform(date)}</Text>
-        </View>
-      </View>
+      <Header navigation={navigation} color={'black'}>
+        <Text style={styles.camera}>{accordance[camera]}</Text>
+        <Text style={styles.date}>{dateTransform(date)}</Text>
+      </Header>
       <View style={styles.photos}>
         <FlatList
           data={photos}
           renderItem={({ item }) => (
-            <Image
-              style={styles.photo}
-              source={{
-                uri: item.img_src
-              }}
-            />
+            <Pressable onPress={() => onPress(item)}>
+              <Image
+                style={styles.photo}
+                source={{
+                  uri: item.img_src
+                }}
+              />
+            </Pressable>
           )}
           keyExtractor={(item) => item.id}
           numColumns={3}
