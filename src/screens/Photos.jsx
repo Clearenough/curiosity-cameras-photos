@@ -26,7 +26,6 @@ function PhotosScreen({ route, navigation }) {
   }
 
   const onPress = (item) => {
-    console.log(item)
     navigation.navigate('Photo', {
       photo: item
     })
@@ -36,24 +35,28 @@ function PhotosScreen({ route, navigation }) {
     <SafeAreaView style={styles.container}>
       <Header navigation={navigation} color={'black'}>
         <Text style={styles.camera}>{accordance[camera]}</Text>
-        <Text style={styles.date}>{dateTransform(date)}</Text>
+        <Text style={styles.date}>{dateTransform(new Date(date))}</Text>
       </Header>
       <View style={styles.photos}>
-        <FlatList
-          data={photos}
-          renderItem={({ item }) => (
-            <Pressable onPress={() => onPress(item)}>
-              <Image
-                style={styles.photo}
-                source={{
-                  uri: item.img_src
-                }}
-              />
-            </Pressable>
-          )}
-          keyExtractor={(item) => item.id}
-          numColumns={3}
-        />
+        {photos.length === 0 ? (
+          <Text>No Photos</Text>
+        ) : (
+          <FlatList
+            data={photos}
+            renderItem={({ item }) => (
+              <Pressable onPress={() => onPress(item)}>
+                <Image
+                  style={styles.photo}
+                  source={{
+                    uri: item.img_src
+                  }}
+                />
+              </Pressable>
+            )}
+            keyExtractor={(item) => item.id}
+            numColumns={3}
+          />
+        )}
       </View>
     </SafeAreaView>
   )

@@ -9,17 +9,16 @@ import {
   Image,
   Pressable
 } from 'react-native'
-import { useContext } from 'react'
+import { useState } from 'react'
 import { useFonts } from 'expo-font'
 import DatePicker from '../components/DatePicker'
 import CameraPicker from '../components/CameraPicker'
-import { CameraAndDateContext } from '../context/CameraAndDateContext'
 import { getPhotos } from '../api/api'
 import { dateTransform } from '../helpers/dateTransform'
 
 function SelectionScreen({ navigation }) {
-  const { currentDateAndCamera, photos, setPhotos } =
-    useContext(CameraAndDateContext)
+  const [date, setDate] = useState(new Date())
+  const [camera, setCamera] = useState()
 
   const [fontsLoaded] = useFonts({
     'Terminal-Dosis-Regular': require('../../assets/fonts/TerminalDosis-Regular.ttf'),
@@ -31,16 +30,14 @@ function SelectionScreen({ navigation }) {
   }
 
   const onPress = async () => {
-    console.log(currentDateAndCamera.camera)
-    if (!currentDateAndCamera.camera) return null
-    const apiDateFornat = dateTransform(currentDateAndCamera.date, 'api')
-    const data = await getPhotos(apiDateFornat, currentDateAndCamera.camera)
+    if (!camera) return null
+    const apiDateFornat = dateTransform(date, 'api')
+    const data = await getPhotos(apiDateFornat, camera)
     navigation.navigate('Photos', {
       photos: data.photos,
-      camera: currentDateAndCamera.camera,
-      date: currentDateAndCamera.date
+      camera: camera,
+      date: date.toString()
     })
-    setPhotos(data.photos)
   }
 
   return (
@@ -54,11 +51,11 @@ function SelectionScreen({ navigation }) {
         <View style={styles.form}>
           <View style={styles.input}>
             <Text style={styles.inputText}>Rover Camera</Text>
-            <CameraPicker />
+            <CameraPicker setCamera={setCamera} camera={camera} />
           </View>
           <View style={styles.input}>
             <Text style={styles.inputText}>Date</Text>
-            <DatePicker />
+            <DatePicker setDate={setDate} date={date} />
           </View>
           <Pressable style={styles.button} onPress={onPress}>
             <Text style={styles.buttonText}>Explore</Text>
