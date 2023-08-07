@@ -4,9 +4,6 @@ import {
   SafeAreaView,
   ImageBackground,
   StyleSheet,
-  Button,
-  Modal,
-  Image,
   Pressable
 } from 'react-native'
 import { useState } from 'react'

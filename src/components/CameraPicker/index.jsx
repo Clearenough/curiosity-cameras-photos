@@ -16,10 +16,6 @@ function CameraPicker({ setCamera }) {
     setCamera(value)
   }
 
-  if (!fontsLoaded) {
-    return null
-  }
-
   return (
     <View style={styles.datePickerView}>
       <SelectList

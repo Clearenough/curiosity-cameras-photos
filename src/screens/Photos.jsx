@@ -7,7 +7,6 @@ import {
   FlatList,
   Image
 } from 'react-native'
-import BackSvg from '../components/Svg/BackSvg'
 import { accordance } from '../constants/constants'
 import { dateTransform } from '../helpers/dateTransform'
 import { useFonts } from 'expo-font'
@@ -20,10 +19,6 @@ function PhotosScreen({ route, navigation }) {
   })
 
   const { photos, camera, date } = route.params
-
-  if (!fontsLoaded) {
-    return null
-  }
 
   const onPress = (item) => {
     navigation.navigate('Photo', {

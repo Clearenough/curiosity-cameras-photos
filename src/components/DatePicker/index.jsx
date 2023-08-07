@@ -1,5 +1,5 @@
 import { useFonts } from 'expo-font'
-import { useState, useContext } from 'react'
+import { useState } from 'react'
 import {
   View,
   Text,
@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     padding: 35,
-    backgroundColor: 'white'
+    backgroundColor: '#ede7df'
   }
 })
 
