@@ -1,6 +1,14 @@
 import { useFonts } from 'expo-font'
 import { useState, useContext } from 'react'
-import { View, Text, Button, Modal, Pressable, StyleSheet } from 'react-native'
+import {
+  View,
+  Text,
+  Button,
+  Modal,
+  Pressable,
+  StyleSheet,
+  Platform
+} from 'react-native'
 import { dateTransform } from './../../helpers/dateTransform'
 import CalendarSvg from '../../components/Svg/CalendarSvg'
 import DateTimePicker from '@react-native-community/datetimepicker'
@@ -20,8 +28,16 @@ function DatePicker() {
     setIsPickerVisible((isVisible) => !isVisible)
   }
 
-  const onChange = (event, selectedDate) => {
-    setCurrentDateAndCamera({ ...currentDateAndCamera, date: selectedDate })
+  const onChange = ({ type }, selectedDate) => {
+    if (type === 'set') {
+      setCurrentDateAndCamera({ ...currentDateAndCamera, date: selectedDate })
+
+      if (Platform.OS === 'android') {
+        setIsPickerVisible(!isPickerVisible)
+      }
+    } else {
+      setIsPickerVisible(!isPickerVisible)
+    }
   }
 
   return (
@@ -35,24 +51,36 @@ function DatePicker() {
               fontFamily: 'Terminal-Dosis-Regular'
             }}
           >
-            {dateTransform(currentDateAndCamera.date)}{' '}
+            {dateTransform(currentDateAndCamera.date)}
           </Text>
           <CalendarSvg />
         </View>
       </Pressable>
-      <Modal transparent={true} visible={isPickerVisible}>
-        <View style={styles.modalView}>
-          <DateTimePicker
-            testID="dateTimePicker"
-            value={currentDateAndCamera.date}
-            mode={'date'}
-            display={'spinner'}
-            onChange={onChange}
-            maximumDate={new Date()}
-          />
-          <Button title={'Confirm'} onPress={onPress} />
-        </View>
-      </Modal>
+      {Platform.OS === 'android' && isPickerVisible && (
+        <DateTimePicker
+          testID="dateTimePicker"
+          value={currentDateAndCamera.date}
+          mode={'date'}
+          display={'spinner'}
+          onChange={onChange}
+          maximumDate={new Date()}
+        />
+      )}
+      {Platform.OS === 'ios' && (
+        <Modal transparent={true} visible={isPickerVisible}>
+          <View style={styles.modalView}>
+            <DateTimePicker
+              testID="dateTimePicker"
+              value={currentDateAndCamera.date}
+              mode={'date'}
+              display={'spinner'}
+              onChange={onChange}
+              maximumDate={new Date()}
+            />
+            <Button title={'Confirm'} onPress={onPress} />
+          </View>
+        </Modal>
+      )}
     </View>
   )
 }
@@ -71,6 +99,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16
   },
   modalView: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
     padding: 35,
     backgroundColor: 'white'
   }
