@@ -31,7 +31,8 @@ function SelectionScreen({ navigation }) {
   }
 
   const onPress = async () => {
-    console.log('click')
+    console.log(currentDateAndCamera.camera)
+    if (!currentDateAndCamera.camera) return null
     const apiDateFornat = dateTransform(currentDateAndCamera.date, 'api')
     const data = await getPhotos(apiDateFornat, currentDateAndCamera.camera)
     navigation.navigate('Photos', {
@@ -39,7 +40,6 @@ function SelectionScreen({ navigation }) {
       camera: currentDateAndCamera.camera,
       date: currentDateAndCamera.date
     })
-    console.log('after navigation')
     setPhotos(data.photos)
   }
 
