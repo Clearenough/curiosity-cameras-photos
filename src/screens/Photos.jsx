@@ -1,4 +1,12 @@
-import { SafeAreaView, Text, Pressable, View, StyleSheet } from 'react-native'
+import {
+  SafeAreaView,
+  Text,
+  Pressable,
+  View,
+  StyleSheet,
+  FlatList,
+  Image
+} from 'react-native'
 import BackSvg from '../components/Svg/BackSvg'
 import { accordance } from '../constants/constants'
 import { dateTransform } from '../helpers/dateTransform'
@@ -12,6 +20,8 @@ function PhotosScreen({ route, navigation }) {
 
   const { photos, camera, date } = route.params
 
+  console.log(photos)
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
@@ -24,6 +34,21 @@ function PhotosScreen({ route, navigation }) {
           <Text style={styles.camera}>{accordance[camera]}</Text>
           <Text style={styles.date}>{dateTransform(date)}</Text>
         </View>
+      </View>
+      <View style={styles.photos}>
+        <FlatList
+          data={photos}
+          renderItem={({ item }) => (
+            <Image
+              style={styles.photo}
+              source={{
+                uri: item.img_src
+              }}
+            />
+          )}
+          keyExtractor={(item) => item.id}
+          numColumns={3}
+        />
       </View>
     </SafeAreaView>
   )
@@ -58,6 +83,16 @@ const styles = StyleSheet.create({
     fontFamily: 'Terminal-Dosis-Regular',
     fontSize: 13,
     lineHeight: 22
+  },
+  photos: {
+    marginHorizontal: 16,
+    paddingTop: 16
+  },
+  photo: {
+    borderRadius: 10,
+    width: 109,
+    height: 109,
+    margin: 4
   }
 })
 
