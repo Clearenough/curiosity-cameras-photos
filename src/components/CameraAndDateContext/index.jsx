@@ -4,7 +4,7 @@ import { CameraAndDateContext } from '../../context/CameraAndDateContext'
 export function ContextProvider({ children }) {
   const [currentDateAndCamera, setCurrentDateAndCamera] = useState({
     date: new Date(),
-    camera: 'Front Hazard Avoidance Camera'
+    camera: null
   })
   const [photos, setPhotos] = useState([])
 

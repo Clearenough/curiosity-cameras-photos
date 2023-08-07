@@ -7,69 +7,7 @@ import { CameraPickerContext } from '../../context/CameraPickerContext'
 import DropdownSvg from '../Svg/DropdownSvg'
 import CalendarSvg from '../Svg/CalendarSvg'
 
-const cameras = [
-  {
-    label: 'Front Hazard Avoidance Camera',
-    value: 'Front Hazard Avoidance Camera',
-    key: 'Front Hazard Avoidance Camera'
-  },
-  {
-    label: 'Rear Hazard Avoidance Camera',
-    value: 'Rear Hazard Avoidance Camera',
-    key: 'Rear Hazard Avoidance Camera'
-  },
-  { label: 'Mast Camera', value: 'Mast Camera', key: 'Mast Camera' },
-  {
-    label: 'Chemistry and Camera Complex',
-    value: 'Chemistry and Camera Complex',
-    key: 'Chemistry and Camera Complex'
-  },
-  {
-    label: 'Mars Hand Lens Imager',
-    value: 'Mars Hand Lens Imager',
-    key: 'Mars Hand Lens Imager'
-  },
-  {
-    label: 'Mars Descent Imager',
-    value: 'Mars Descent Imager',
-    key: 'Mars Descent Imager'
-  },
-  {
-    label: 'Navigation Camera',
-    value: 'Navigation Camera',
-    key: 'Navigation Camera'
-  },
-  {
-    label: 'Panoramic Camera',
-    value: 'Panoramic Camera',
-    key: 'Panoramic Camera'
-  },
-  {
-    label: 'Miniature Thermal Emission Spectrometer (Mini-TES)',
-    value: '(Mini-TES)',
-    key: 'Miniature Thermal Emission Spectrometer (Mini-TES)'
-  }
-]
-
-const accordance = {
-  'Front Hazard Avoidance Camera': 'fhaz',
-  'Rear Hazard Avoidance Camera': 'rhaz',
-  'Mast Camera': 'mast',
-  'Chemistry and Camera Complex': 'chemcam',
-  'Mars Hand Lens Imager': 'mahli',
-  'Mars Descent Imager': 'mardi',
-  'Navigation Camera': 'navcam',
-  'Panoramic Camera': 'pancam',
-  'Miniature Thermal Emission Spectrometer (Mini-TES)': 'minites'
-}
-
-const data2 = [
-  { key: 'Canada', value: 'Canada' },
-  { key: 'England', value: 'England' },
-  { key: 'Pakistan', value: 'Pakistan' },
-  { key: 'India', value: 'India' },
-  { key: 'NewZealand', value: 'NewZealand' }
-]
+import { accordance, cameras } from '../../constants/constants'
 
 function CameraPicker() {
   const [fontsLoaded] = useFonts({
@@ -93,7 +31,7 @@ function CameraPicker() {
       <SelectList
         search={false}
         data={cameras}
-        setSelected={(val) => setValue(accordance[val])}
+        setSelected={(val) => setValue(val)}
         fontFamily={'Terminal-Dosis-Regular'}
         inputStyles={{
           fontSize: 18,
